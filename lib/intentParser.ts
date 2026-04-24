@@ -7,7 +7,7 @@ export type ParsedResponse = {
   description: string | null;
 };
 
-export function parseIntent(raw: string): ParsedResponse {
+export function parseIntent(raw: string): ParsedResponse | null {
   const jsonStart = raw.lastIndexOf("{");
   const jsonEnd = raw.lastIndexOf("}");
 
@@ -20,8 +20,9 @@ export function parseIntent(raw: string): ParsedResponse {
     }
   }
 
-  const text =
-    jsonStart !== -1 ? raw.slice(0, jsonStart).trim() : raw.trim();
+  if (parsed === null) return null;
+
+  const text = raw.slice(0, jsonStart).trim();
 
   return {
     text,

@@ -10,7 +10,7 @@ type RepairStore = {
   messages: Message[];
   lastIntent: ParsedResponse | null;
   addMessage: (message: Message) => void;
-  setLastIntent: (intent: ParsedResponse) => void;
+  setLastIntent: (intent: ParsedResponse | null) => void;
   clearIntent: () => void;
 };
 

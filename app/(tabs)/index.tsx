@@ -49,7 +49,7 @@ export default function ChatScreen() {
     try {
       const raw = await sendMessage([...messages, userMessage]);
       const parsed = parseIntent(raw);
-      addMessage({ role: "assistant", content: parsed.text });
+      addMessage({ role: "assistant", content: parsed?.text ?? raw });
       setLastIntent(parsed);
     } catch {
       addMessage({

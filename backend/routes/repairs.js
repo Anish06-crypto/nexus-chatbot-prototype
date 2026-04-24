@@ -57,6 +57,9 @@ router.patch('/:id', async (req, res) => {
         if (!updated) return res.status(404).json({ error: 'Repair not found' });
         res.json(updated);
     } catch (error) {
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ error: error.message });
+        }
         res.status(500).json({ error: 'Server error' });
     }
 });
