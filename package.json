@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest"
   },
   "dependencies": {
     "expo": "~54.0.33",
@@ -17,6 +18,7 @@
     "expo-status-bar": "~3.0.9",
     "firebase": "^12.12.1",
     "groq-sdk": "^1.1.2",
+    "jest-expo": "~54.0.17",
     "nativewind": "^4.2.3",
     "react": "19.1.0",
     "react-native": "0.81.5",
@@ -27,7 +29,12 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/react": "~19.1.0",
+    "babel-preset-expo": "^55.0.18",
+    "jest": "^30.3.0",
+    "react-native-worklets-core": "^1.6.3",
+    "ts-jest": "^29.4.9",
     "typescript": "~5.9.2"
   },
   "private": true
