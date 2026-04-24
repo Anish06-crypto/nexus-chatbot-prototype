@@ -3,6 +3,7 @@
     "name": "nexus-prototype",
     "slug": "nexus-prototype",
     "version": "1.0.0",
+    "scheme": "nexus",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
