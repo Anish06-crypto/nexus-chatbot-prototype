@@ -44,3 +44,5 @@ yarn-error.*
 .npmrc
 .env.example
 backend/.env
+
+docs/superpowers/*
