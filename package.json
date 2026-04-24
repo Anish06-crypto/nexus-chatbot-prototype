@@ -33,9 +33,13 @@
     "@types/react": "~19.1.0",
     "babel-preset-expo": "^55.0.18",
     "jest": "^30.3.0",
+    "react-native-worklets": "^0.8.1",
     "react-native-worklets-core": "^1.6.3",
-    "ts-jest": "^29.4.9",
     "typescript": "~5.9.2"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testEnvironment": "node"
   },
   "private": true
 }
