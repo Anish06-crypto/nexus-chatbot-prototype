@@ -19,7 +19,7 @@ LLM: Groq llama-3.3-70b-versatile
 
 ## Live demo
 
-Scan with Expo Go: ![alt text](image.png)
+Scan with Expo Go: ![alt text](image-1.png)
 
 ## Stack
 
