@@ -1,11 +1,11 @@
 # Nexus Prototype
 
 A React Native tenant services platform built as a demonstration 
-for the BCU/NUCHA KTP Associate application.
+prototype.
 
 ## What it demonstrates
 
-- NLP-driven repair request classification using Nehemiah's actual 
+- NLP-driven repair request classification using Housing Association's actual 
   urgency categories (Critical / Emergency / Urgent / Routine)
 - Multi-lingual support — responds in the user's language (tested: 
   Urdu, Somali, Welsh, English)
