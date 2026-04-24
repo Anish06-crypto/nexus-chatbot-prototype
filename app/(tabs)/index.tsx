@@ -8,12 +8,23 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
+  useWindowDimensions
 } from "react-native";
 import { router } from "expo-router";
 import ChatBubble from "../../components/ChatBubble";
 import { sendMessage } from "../../lib/groq";
 import { parseIntent } from "../../lib/intentParser";
 import { useRepairStore } from "../../store/repairStore";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const EXAMPLE_PROMPTS = [
+  { label: "🔧 Boiler broken", text: "My boiler is not working" },
+  { label: "💧 Leak", text: "There is a water leak in my kitchen" },
+  { label: "🌡️ No heating", text: "I have no heating or hot water" },
+  { label: "🚽 Blocked toilet", text: "My toilet is blocked" },
+  { label: "💰 Rent query", text: "I have a question about my rent payment" },
+  { label: "میرا بوائلر", text: "میرا بوائلر کام نہیں کر رہا" },
+];
 
 export default function ChatScreen() {
   const messages = useRepairStore((s) => s.messages);
@@ -24,6 +35,8 @@ export default function ChatScreen() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const flatListRef = useRef<FlatList>(null);
+
+  const insets = useSafeAreaInsets();
 
   async function handleSend() {
     if (!input.trim() || loading) return;
@@ -56,6 +69,7 @@ export default function ChatScreen() {
     <KeyboardAvoidingView
       className="flex-1 bg-background"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={insets.bottom + 49}
     >
       <FlatList
         ref={flatListRef}
@@ -67,7 +81,24 @@ export default function ChatScreen() {
         contentContainerStyle={{ paddingVertical: 16 }}
         onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
       />
-
+      {messages.length === 0 && (
+        <View className="px-4 pb-2">
+          <Text className="text-secondary text-xs mb-2 font-medium">
+            Tap a suggestion or type your message:
+          </Text>
+          <View className="flex-row flex-wrap gap-2">
+            {EXAMPLE_PROMPTS.map((prompt) => (
+              <TouchableOpacity
+                key={prompt.label}
+                className="bg-surface border border-gray-200 rounded-full px-3 py-2"
+                onPress={() => setInput(prompt.text)}
+              >
+                <Text className="text-ink text-xs">{prompt.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      )}
       {loading && <ActivityIndicator className="my-2" color="#e8a020" />}
 
       {lastIntent?.intent === "REPAIR_REQUEST" && !loading && (
