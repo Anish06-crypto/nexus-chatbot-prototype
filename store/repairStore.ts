@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { ParsedResponse } from "../lib/intentParser";
 
-type Message = {
+export type Message = {
   role: "user" | "assistant";
   content: string;
 };
@@ -22,3 +22,4 @@ export const useRepairStore = create<RepairStore>((set) => ({
   setLastIntent: (intent) => set({ lastIntent: intent }),
   clearIntent: () => set({ lastIntent: null }),
 }));
+

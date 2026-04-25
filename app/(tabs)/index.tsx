@@ -8,12 +8,10 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
-  useWindowDimensions
 } from "react-native";
 import { router } from "expo-router";
 import ChatBubble from "../../components/ChatBubble";
-import { sendMessage } from "../../lib/groq";
-import { parseIntent } from "../../lib/intentParser";
+import { sendChatMessage } from '../../lib/api';
 import { useRepairStore } from "../../store/repairStore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -41,16 +39,18 @@ export default function ChatScreen() {
   async function handleSend() {
     if (!input.trim() || loading) return;
 
-    const userMessage = { role: "user" as const, content: input.trim() };
+    const userMessageContent = input.trim();
+    const userMessage = { role: "user" as const, content: userMessageContent };
     addMessage(userMessage);
     setInput("");
     setLoading(true);
 
     try {
-      const raw = await sendMessage([...messages, userMessage]);
-      const parsed = parseIntent(raw);
-      addMessage({ role: "assistant", content: parsed?.text ?? raw });
-      setLastIntent(parsed);
+      const result = await sendChatMessage(userMessageContent, messages);
+      addMessage({ role: 'assistant', content: result.text });
+      if (result.intent) {
+        setLastIntent(result.intent);
+      }
     } catch {
       addMessage({
         role: "assistant",
@@ -76,7 +76,7 @@ export default function ChatScreen() {
         data={messages}
         keyExtractor={(_, i) => String(i)}
         renderItem={({ item }) => (
-          <ChatBubble role={item.role} text={item.content} />
+          <ChatBubble role={item.role} content={item.content} />
         )}
         contentContainerStyle={{ paddingVertical: 16 }}
         onContentSizeChange={() => flatListRef.current?.scrollToEnd()}

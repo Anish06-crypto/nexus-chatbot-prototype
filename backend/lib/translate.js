@@ -12,8 +12,7 @@ async function detectAndTranslateToEnglish(text) {
 }
 
 async function translateToLanguage(text, targetLang) {
-    // EN means no translation needed
-    if (targetLang === 'EN') return text;
+    if (targetLang === 'EN' || targetLang === 'EN-GB' || targetLang === 'EN-US') return text;
 
     const result = await translator.translateText(text, 'EN', targetLang);
     return result.text;

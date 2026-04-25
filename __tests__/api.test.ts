@@ -1,4 +1,4 @@
-import { submitRepair, fetchRepairs } from '../lib/api';
+import { submitRepair, fetchRepairs, sendChatMessage } from '../lib/api';
 
 // Mock fetch globally
 global.fetch = jest.fn();
@@ -72,6 +72,42 @@ describe('api — submitRepair', () => {
                 description: '',
             })
         ).rejects.toThrow('Network request failed');
+    });
+
+});
+
+describe('api — sendChatMessage', () => {
+
+    test('sends message and history to /api/chat', async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({
+                text: 'Your boiler issue is urgent.',
+                intent: {
+                    intent: 'REPAIR_REQUEST',
+                    issue_type: 'Boiler',
+                    location: 'Kitchen',
+                    urgency: 'URGENT',
+                    description: 'Boiler not working'
+                },
+                detectedLanguage: 'EN'
+            })
+        } as Response);
+
+        const result = await sendChatMessage('My boiler is broken', []);
+        expect(result.text).toBe('Your boiler issue is urgent.');
+        expect(result.intent?.urgency).toBe('URGENT');
+    });
+
+    test('throws on non-ok response', async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: false,
+            status: 500
+        } as Response);
+
+        await expect(
+            sendChatMessage('My boiler is broken', [])
+        ).rejects.toThrow('Chat request failed');
     });
 
 });

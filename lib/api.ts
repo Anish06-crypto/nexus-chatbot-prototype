@@ -1,3 +1,6 @@
+import { ParsedResponse } from './intentParser';
+import { Message } from '../store/repairStore';
+
 export type Repair = {
   _id: string;
   reference: string;
@@ -45,4 +48,21 @@ export async function fetchRepairs(): Promise<Repair[]> {
   const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/repairs`);
   if (!response.ok) throw new Error("Failed to fetch repairs");
   return response.json() as Promise<Repair[]>;
+}
+
+export async function sendChatMessage(
+  message: string,
+  history: Message[]
+): Promise<{ text: string; intent: ParsedResponse | null; detectedLanguage: string }> {
+  const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/chat`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, history })
+  });
+
+  if (!response.ok) {
+    throw new Error('Chat request failed');
+  }
+
+  return response.json();
 }

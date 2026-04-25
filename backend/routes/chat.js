@@ -5,7 +5,7 @@ const { sendMessage } = require('../lib/groq');
 const { parseIntent } = require('../lib/intentParser');
 
 router.post('/', async (req, res) => {
-    const { message, history } = req.body;
+    const { message, history = [] } = req.body;
 
     if (!message) {
         return res.status(400).json({ error: 'message is required' });
