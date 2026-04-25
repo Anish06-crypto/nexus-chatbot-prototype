@@ -3,10 +3,10 @@ import { View, Text } from "react-native";
 
 type Props = {
   role: "user" | "assistant";
-  text: string;
+  content: string;
 };
 
-export default function ChatBubble({ role, text }: Props) {
+export default function ChatBubble({ role, content }: Props) {
   const isUser = role === "user";
   return (
     <View className={`mb-2 px-3 ${isUser ? "items-end" : "items-start"}`}>
@@ -17,7 +17,7 @@ export default function ChatBubble({ role, text }: Props) {
             : "bg-surface border border-gray-200 rounded-tl-sm"
         }`}
       >
-        <Text className={isUser ? "text-white" : "text-ink"}>{text}</Text>
+        <Text className={isUser ? "text-white" : "text-ink"}>{content}</Text>
       </View>
     </View>
   );
