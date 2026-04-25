@@ -1,5 +1,7 @@
 const Groq = require('groq-sdk');
 
+console.log('[groq] GROQ_API_KEY present:', !!process.env.GROQ_API_KEY);
+
 const SYSTEM_PROMPT = `You are a helpful assistant for Nexus, the tenant services platform
 for Nehemiah Housing Association, which provides homes for over 4,000
 people across the West Midlands, UK.
