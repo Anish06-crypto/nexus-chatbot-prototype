@@ -11,7 +11,9 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/__tests__/**/*.test.js"],
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
     "testTimeout": 30000
   },
   "keywords": [],
@@ -20,8 +22,10 @@
   "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.6",
+    "deepl-node": "^1.26.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "groq-sdk": "^0.9.1",
     "mongoose": "^9.5.0"
   },
   "devDependencies": {

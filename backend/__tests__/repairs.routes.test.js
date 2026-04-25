@@ -4,7 +4,29 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const express = require('express');
 const cors = require('cors');
 const repairRoutes = require('../routes/repairs');
+const chatRoutes = require('../routes/chat');
 const Repair = require('../models/Repair');
+
+jest.mock('../lib/translate', () => ({
+    detectAndTranslateToEnglish: jest.fn().mockResolvedValue({
+        englishText: 'My boiler is not working',
+        detectedLanguage: 'EN'
+    }),
+    safeTranslateBack: jest.fn().mockImplementation((text) => text)
+}));
+
+jest.mock('groq-sdk', () => {
+    const mockCreate = jest.fn().mockResolvedValue({
+        choices: [{
+            message: {
+                content: 'I will log a repair for your boiler.\n{"intent":"REPAIR_REQUEST","issue_type":"Boiler","location":"unknown","urgency":"URGENT","description":"Boiler not working"}'
+            }
+        }]
+    });
+    return jest.fn().mockImplementation(() => ({
+        chat: { completions: { create: mockCreate } }
+    }));
+});
 
 let mongod;
 let app;
@@ -17,6 +39,7 @@ beforeAll(async () => {
     app.use(cors());
     app.use(express.json());
     app.use('/api/repairs', repairRoutes);
+    app.use('/api/chat', chatRoutes);
 });
 
 afterEach(async () => {
@@ -26,6 +49,32 @@ afterEach(async () => {
 afterAll(async () => {
     await mongoose.disconnect();
     await mongod.stop();
+});
+
+describe('POST /api/chat', () => {
+
+    test('returns text and intent for English repair request', async () => {
+        const res = await request(app)
+            .post('/api/chat')
+            .send({
+                message: 'My boiler is not working',
+                history: []
+            });
+
+        expect(res.status).toBe(200);
+        expect(res.body.text).toBeDefined();
+        expect(res.body.intent).toBeDefined();
+        expect(res.body.detectedLanguage).toBeDefined();
+    });
+
+    test('returns 400 when message is missing', async () => {
+        const res = await request(app)
+            .post('/api/chat')
+            .send({ history: [] });
+
+        expect(res.status).toBe(400);
+    });
+
 });
 
 describe('POST /api/repairs', () => {

@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const repairRoutes = require('./routes/repairs');
+const chatRoutes = require('./routes/chat');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/repairs', repairRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check — Render uses this to confirm the service is alive
 app.get('/health', (req, res) => {
