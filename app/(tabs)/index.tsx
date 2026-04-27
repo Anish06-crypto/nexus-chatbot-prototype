@@ -16,12 +16,11 @@ import { useRepairStore } from "../../store/repairStore";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const EXAMPLE_PROMPTS = [
-  { label: "🔧 Boiler broken", text: "My boiler is not working" },
-  { label: "💧 Leak", text: "There is a water leak in my kitchen" },
-  { label: "🌡️ No heating", text: "I have no heating or hot water" },
-  { label: "🚽 Blocked toilet", text: "My toilet is blocked" },
-  { label: "💰 Rent query", text: "I have a question about my rent payment" },
-  { label: "میرا بوائلر", text: "میرا بوائلر کام نہیں کر رہا" },
+  { label: "🇵🇰 میرا بوائلر", text: "میرا بوائلر کام نہیں کر رہا" },
+  { label: "🇮🇳 छत से पानी", text: "मेरी छत से पानी टपक रहा है" },
+  { label: "🏴󠁧󠁢󠁷󠁬󠁳󠁿 Dim gwres", text: "Does dim gwres na dŵr poeth gyda fi" },
+  { label: "🇵🇱 Kocioł", text: "Mój kocioł nie działa" },
+  { label: "🇷🇴 Toaletă", text: "Toaleta mea este blocată" },
 ];
 
 export default function ChatScreen() {
