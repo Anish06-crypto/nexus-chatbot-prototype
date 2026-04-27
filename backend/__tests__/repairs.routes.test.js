@@ -7,6 +7,9 @@ const repairRoutes = require('../routes/repairs');
 const chatRoutes = require('../routes/chat');
 const Repair = require('../models/Repair');
 
+// In test file, before tests:
+jest.mock('express-rate-limit', () => () => (req, res, next) => next());
+
 jest.mock('../lib/translate', () => ({
     detectAndTranslateToEnglish: jest.fn().mockResolvedValue({
         englishText: 'My boiler is not working',
