@@ -21,6 +21,7 @@ const EXAMPLE_PROMPTS = [
   { label: "🏴󠁧󠁢󠁷󠁬󠁳󠁿 Dim gwres", text: "Does dim gwres na dŵr poeth gyda fi" },
   { label: "🇵🇱 Kocioł", text: "Mój kocioł nie działa" },
   { label: "🇷🇴 Toaletă", text: "Toaleta mea este blocată" },
+  { label: "💰 Rent query", text: "I have a question about my rent payment" }
 ];
 
 export default function ChatScreen() {

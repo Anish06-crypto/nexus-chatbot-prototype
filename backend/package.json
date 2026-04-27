@@ -25,6 +25,7 @@
     "deepl-node": "^1.26.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.4.1",
     "groq-sdk": "^0.9.1",
     "mongoose": "^9.5.0"
   },
