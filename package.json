@@ -17,7 +17,6 @@
     "expo-router": "~6.0.23",
     "expo-status-bar": "~3.0.9",
     "expo-updates": "~29.0.16",
-    "firebase": "^12.12.1",
     "groq-sdk": "^1.1.2",
     "jest-expo": "~54.0.17",
     "nativewind": "^4.2.3",

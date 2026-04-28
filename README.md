@@ -42,7 +42,7 @@ badges colour-coded by category. Designed to replace "you will be
 contacted by one of our contractors."
 
 **Test suite and CI**  
-38 tests across backend and frontend, running on GitHub Actions CI on 
+42 tests across backend and frontend, running on GitHub Actions CI on 
 every push to main.
 
 ## Architecture
